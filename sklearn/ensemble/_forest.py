@@ -428,9 +428,9 @@ class BaseForest(MultiOutputMixin, BaseEnsemble, metaclass=ABCMeta):
                 # Check if sample_weight is a matrix
                 if isinstance(sample_weight, np.ndarray) and sample_weight.ndim == 2:
                     # Check if the number of columns in sample_weight matches the length of expanded_class_weight
-                    if sample_weight.shape[1] != len(expanded_class_weight):
+                    if sample_weight.shape[0] != len(expanded_class_weight):
                         raise ValueError(
-                            "Number of columns in sample_weight does not match the length of expanded_class_weight."
+                            f"Number of columns in sample_weight does not match the length of expanded_class_weight. Expected: {len(expanded_class_weight)} but received: {sample_weight.shape[0]} "
                         )
                     # If sample_weight is a matrix, multiply each column element-wise by expanded_class_weight
                     sample_weight = np.multiply(sample_weight, expanded_class_weight)
