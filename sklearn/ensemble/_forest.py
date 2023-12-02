@@ -432,8 +432,8 @@ class BaseForest(MultiOutputMixin, BaseEnsemble, metaclass=ABCMeta):
                         raise ValueError(
                             f"Number of columns in sample_weight does not match the length of expanded_class_weight. Expected: {len(expanded_class_weight)} but received: {sample_weight.shape[0]} "
                         )
-                    # If sample_weight is a matrix, multiply each column element-wise by expanded_class_weight
-                    sample_weight = np.multiply(sample_weight, expanded_class_weight)
+                    # If sample_weight is a matrix leave as is.
+                    sample_weight = sample_weight
                 else:
                     # If sample_weight is an array, apply class weight
                     sample_weight = sample_weight * expanded_class_weight
