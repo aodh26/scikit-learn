@@ -1849,6 +1849,7 @@ def _check_sample_weight(
         Validated sample weight. It is guaranteed to be "C" contiguous.
     """
     n_samples = _num_samples(X)
+    n_features = _num_features(X)
 
     if dtype is not None and dtype not in [np.float32, np.float64]:
         dtype = np.float64
@@ -1871,10 +1872,10 @@ def _check_sample_weight(
         )
 
 
-        if sample_weight.shape != (n_samples,):
+        if sample_weight.shape != (n_samples,n_features):
             raise ValueError(
                 "sample_weight.shape == {}, expected {}!".format(
-                    sample_weight.shape, (n_samples,)
+                    sample_weight.shape, (n_samples,n_features)
                 )
             )
 
