@@ -357,8 +357,11 @@ class BaseDecisionTree(MultiOutputMixin, BaseEstimator, metaclass=ABCMeta):
                 % (len(y), n_samples)
             )
 
-        if sample_weight is not None:
-            sample_weight = _check_sample_weight(sample_weight, X, DOUBLE)
+        if sample_weight is not None: #aodh
+            if sample_weight.ndim == 1:
+                sample_weight = _check_sample_weight(sample_weight, X, DOUBLE)
+            else:
+                sample_weight = _check_sample_weight(sample_weight.ravel(), X, DOUBLE)
 
         if expanded_class_weight is not None:
             if sample_weight is not None:

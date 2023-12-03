@@ -423,7 +423,7 @@ class BaseForest(MultiOutputMixin, BaseEnsemble, metaclass=ABCMeta):
         if getattr(y, "dtype", None) != DOUBLE or not y.flags.contiguous:
             y = np.ascontiguousarray(y, dtype=DOUBLE)
 
-        if expanded_class_weight is not None:
+        if expanded_class_weight is not None: #aodh
             if sample_weight is not None:
                 # Check if sample_weight is a matrix
                 if isinstance(sample_weight, np.ndarray) and sample_weight.ndim == 2:
