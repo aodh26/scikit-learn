@@ -1870,12 +1870,12 @@ def _check_sample_weight(
             copy=copy,
             input_name="sample_weight",
         )
+    #aodh
 
-
-        if sample_weight.shape != (n_samples,n_features):
+        if sample_weight.shape != (n_samples,n_features): #aodh
             raise ValueError(
                 "sample_weight.shape == {}, expected {}!".format(
-                    sample_weight.shape, (n_samples,n_features)
+                    sample_weight.shape, (n_samples,n_features) #aodh
                 )
             )
 

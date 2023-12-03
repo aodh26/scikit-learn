@@ -180,7 +180,7 @@ def _parallel_build_trees(
             tree.random_state, n_samples, n_samples_bootstrap
         )
         sample_counts = np.bincount(indices, minlength=n_samples)
-        curr_sample_weight *= sample_counts
+        curr_sample_weight *= sample_counts[:, np.newaxis] #aodh
 
         if class_weight == "subsample":
             with catch_warnings():
