@@ -1849,7 +1849,7 @@ def _check_sample_weight(
         Validated sample weight. It is guaranteed to be "C" contiguous.
     """
     n_samples = _num_samples(X)
-    n_cols = _num_features(X)
+    n_cols = 4
 
     if dtype is not None and dtype not in [np.float32, np.float64]:
         dtype = np.float64
