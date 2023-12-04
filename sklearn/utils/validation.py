@@ -1849,7 +1849,7 @@ def _check_sample_weight(
         Validated sample weight. It is guaranteed to be "C" contiguous.
     """
     n_samples = _num_samples(X)
-    n_cols = sample_weight.columns #aodh
+    n_cols = _num_features(X)
 
     if dtype is not None and dtype not in [np.float32, np.float64]:
         dtype = np.float64
@@ -1871,12 +1871,11 @@ def _check_sample_weight(
             input_name="sample_weight",
         )
     #aodh
-        print(sample_weight.shape)
-        print((n_samples,n_cols))
-        if sample_weight.shape != (n_samples,n_cols): #aodh
+        print(sample_weight.shape, '   _____   ',  n_samples)
+        if sample_weight.shape != (n_samples) or sample_weight.shape != (n_samples,n_cols): #aodh
             raise ValueError(
                 "sample_weight.shape == {}, expected {}!".format(
-                    sample_weight.shape, (n_samples,n_cols) #aodh
+                    sample_weight.shape, (n_samples) #aodh
                 )
             )
 
