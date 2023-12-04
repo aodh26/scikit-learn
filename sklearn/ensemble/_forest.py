@@ -180,7 +180,7 @@ def _parallel_build_trees(
             tree.random_state, n_samples, n_samples_bootstrap
         )
         sample_counts = np.bincount(indices, minlength=n_samples)
-        if sample_counts.ndim == 1: 
+        if curr_sample_weight.ndim == 1: 
             curr_sample_weight *= sample_counts
         else:
             curr_sample_weight *= sample_counts[:, np.newaxis] #aodh
