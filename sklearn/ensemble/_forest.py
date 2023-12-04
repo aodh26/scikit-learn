@@ -180,10 +180,13 @@ def _parallel_build_trees(
             tree.random_state, n_samples, n_samples_bootstrap
         )
         sample_counts = np.bincount(indices, minlength=n_samples)
+        print('current sample weight shape before:',curr_sample_weight.shape)
         if curr_sample_weight.ndim == 1: 
             curr_sample_weight *= sample_counts
         else:
             curr_sample_weight *= sample_counts[:, np.newaxis] #aodh
+            print('current sample weight shape:',curr_sample_weight.shape)
+            print('sample count shape',sample_counts[:, np.newaxis].shape)
 
         if class_weight == "subsample":
             with catch_warnings():
@@ -429,8 +432,6 @@ class BaseForest(MultiOutputMixin, BaseEnsemble, metaclass=ABCMeta):
        
         if expanded_class_weight is not None: #aodh
             if sample_weight is not None:
-                print('Sample weight:')
-                print(sample_weight.shape)
 
                 # Check if sample_weight is a matrix
                 if isinstance(sample_weight, np.ndarray) and sample_weight.ndim == 2:
@@ -439,16 +440,13 @@ class BaseForest(MultiOutputMixin, BaseEnsemble, metaclass=ABCMeta):
                         raise ValueError(
                             f"Number of columns in sample_weight does not match the length of expanded_class_weight. Expected: {len(expanded_class_weight)} but received: {sample_weight.shape[0]} "
                         )
-                    print('Im here')
                     # If sample_weight is a matrix leave as is.
                     pass
                 else:
                     # If sample_weight is an array, apply class weight
                     sample_weight = sample_weight * expanded_class_weight
             else:
-                print('Extended weight:')
                 sample_weight = expanded_class_weight
-                print(sample_weight.shape)
 
 
         if not self.bootstrap and self.max_samples is not None:
