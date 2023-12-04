@@ -133,8 +133,6 @@ cdef class TreeBuilder:
                 not sample_weight.base.flags.contiguous
             )
         ):
-            #aodh
-            if sample_weight.ndim == 1: 
                 sample_weight = np.asarray(sample_weight, dtype=DOUBLE, order="C")
 
         return X, y, sample_weight
