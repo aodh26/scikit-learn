@@ -168,7 +168,7 @@ cdef class DepthFirstTreeBuilder(TreeBuilder):
         Tree tree,
         object X,
         const float64_t[:, ::1] y,
-        const float64_t[:, ::1] sample_weight=None, #aodh
+        const float64_t[:] sample_weight=None,
         const unsigned char[::1] missing_values_in_feature_mask=None,
     ):
         """Build a decision tree from the training set (X, y)."""
