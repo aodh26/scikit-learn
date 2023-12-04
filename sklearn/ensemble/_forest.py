@@ -439,12 +439,16 @@ class BaseForest(MultiOutputMixin, BaseEnsemble, metaclass=ABCMeta):
                         )
                     # If sample_weight is a matrix leave as is.
                     pass
+                    print("matrix")
                 else:
                     # If sample_weight is an array, apply class weight
                     sample_weight = sample_weight * expanded_class_weight
+                    print("hello")
             else:
                 sample_weight = expanded_class_weight
-
+            print('sample weight: ', sample_weight)
+            print('sample weight shape: ', sample_weight.shape)
+            print('sample weight type: ', type(sample_weight))
 
         if not self.bootstrap and self.max_samples is not None:
             raise ValueError(
