@@ -183,8 +183,7 @@ def _parallel_build_trees(
         if curr_sample_weight.ndim == 1: 
             curr_sample_weight *= sample_counts
         else:
-            pass
-            #curr_sample_weight *= sample_counts[:, np.newaxis] #aodh
+            curr_sample_weight *= sample_counts[:, np.newaxis] #aodh
 
         if class_weight == "subsample":
             with catch_warnings():
