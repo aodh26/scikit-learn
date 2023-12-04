@@ -423,8 +423,12 @@ class BaseForest(MultiOutputMixin, BaseEnsemble, metaclass=ABCMeta):
         if getattr(y, "dtype", None) != DOUBLE or not y.flags.contiguous:
             y = np.ascontiguousarray(y, dtype=DOUBLE)
 
+       
         if expanded_class_weight is not None: #aodh
             if sample_weight is not None:
+                print('Sample weight:')
+                print(sample_weight.shape)
+
                 # Check if sample_weight is a matrix
                 if isinstance(sample_weight, np.ndarray) and sample_weight.ndim == 2:
                     # Check if the number of columns in sample_weight matches the length of expanded_class_weight
@@ -432,13 +436,17 @@ class BaseForest(MultiOutputMixin, BaseEnsemble, metaclass=ABCMeta):
                         raise ValueError(
                             f"Number of columns in sample_weight does not match the length of expanded_class_weight. Expected: {len(expanded_class_weight)} but received: {sample_weight.shape[0]} "
                         )
+                    print('Im here')
                     # If sample_weight is a matrix leave as is.
-                    sample_weight = sample_weight
+                    pass
                 else:
                     # If sample_weight is an array, apply class weight
                     sample_weight = sample_weight * expanded_class_weight
             else:
+                print('Extended weight:')
                 sample_weight = expanded_class_weight
+                print(sample_weight.shape)
+
 
         if not self.bootstrap and self.max_samples is not None:
             raise ValueError(
