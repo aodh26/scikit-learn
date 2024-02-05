@@ -1873,8 +1873,8 @@ def _check_sample_weight(
             copy=copy,
             input_name="sample_weight",
         )
-        if sample_weight.ndim != X.ndim: #changed to accept matrix or higher
-            raise ValueError("Sample weights must have a dimension equal to that of {}, however {} was given!".format(
+        if sample_weight.ndim != X.ndim and sample_weight.ndim != 1: #changed to accept matrix or higher
+            raise ValueError("Sample weights must have a dimension equal to 1 or {}, however {} was given!".format(
                 X.ndim, sample_weight.ndim
                 )
             )

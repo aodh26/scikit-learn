@@ -179,13 +179,13 @@ def _parallel_build_trees(
         indices = _generate_sample_indices(
             tree.random_state, n_samples, n_samples_bootstrap
         )
-        sample_counts = np.bincount(indices, minlength=n_samples)
-        curr_sample_weight *= sample_counts
+        sample_counts = np.bincount(indices, minlength=n_samples) #problem line
+        curr_sample_weight *= sample_counts #problem line
 
         if class_weight == "subsample":
             with catch_warnings():
                 simplefilter("ignore", DeprecationWarning)
-                curr_sample_weight *= compute_sample_weight("auto", y, indices=indices)
+                curr_sample_weight *= compute_sample_weight("auto", y, indices=indices) #problem line
         elif class_weight == "balanced_subsample":
             curr_sample_weight *= compute_sample_weight("balanced", y, indices=indices)
 
