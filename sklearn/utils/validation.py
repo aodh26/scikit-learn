@@ -1849,6 +1849,9 @@ def _check_sample_weight(
         Validated sample weight. It is guaranteed to be "C" contiguous.
     """
     n_samples = _num_samples(X)
+    n_features = _num_features(X) #getting number of classes for validation
+    print("n_samples", n_samples)
+    print("n_features", n_features)
 
     if dtype is not None and dtype not in [np.float32, np.float64]:
         dtype = np.float64
@@ -1856,7 +1859,8 @@ def _check_sample_weight(
     if sample_weight is None:
         sample_weight = np.ones(n_samples, dtype=dtype)
     elif isinstance(sample_weight, numbers.Number):
-        sample_weight = np.full(n_samples, sample_weight, dtype=dtype)
+        print("numbers sample weight", sample_weight)
+        sample_weight = np.full(n_samples, sample_weight, dtype=dtype) #problem line
     else:
         if dtype is None:
             dtype = [np.float64, np.float32]
@@ -1869,13 +1873,23 @@ def _check_sample_weight(
             copy=copy,
             input_name="sample_weight",
         )
-        if sample_weight.ndim != 1:
-            raise ValueError("Sample weights must be 1D array or scalar")
+        if sample_weight.ndim != X.ndim: #changed to accept matrix or higher
+            raise ValueError("Sample weights must have a dimension equal to that of {}, however {} was given!".format(
+                X.ndim, sample_weight.ndim
+                )
+            )
 
-        if sample_weight.shape != (n_samples,):
+        if sample_weight.shape[0] != (n_samples,): #changed to check number of rows
             raise ValueError(
-                "sample_weight.shape == {}, expected {}!".format(
-                    sample_weight.shape, (n_samples,)
+                "sample_weight.shape[0] == {}, expected {}!".format(
+                    sample_weight.shape[0], (n_samples,)
+                )
+            )
+
+        if sample_weight.shape[1] != (n_features,): #changed to check number of features
+            raise ValueError(
+                "sample_weight.shape[1] == {}, expected {}!".format(
+                    sample_weight.shape[1], (n_features,)
                 )
             )
 
