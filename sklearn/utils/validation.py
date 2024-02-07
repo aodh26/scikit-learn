@@ -1848,10 +1848,9 @@ def _check_sample_weight(
     sample_weight : ndarray of shape (n_samples,)
         Validated sample weight. It is guaranteed to be "C" contiguous.
     """
+    #aodh
     n_samples = _num_samples(X)
     n_features = _num_features(X) #getting number of classes for validation
-    print("n_samples", n_samples)
-    print("n_features", n_features)
 
     if dtype is not None and dtype not in [np.float32, np.float64]:
         dtype = np.float64
@@ -1879,17 +1878,17 @@ def _check_sample_weight(
                 )
             )
 
-        if sample_weight.shape[0] != (n_samples,): #changed to check number of rows
+        if sample_weight.shape[0] != n_samples: #changed to check number of rows
             raise ValueError(
                 "sample_weight.shape[0] == {}, expected {}!".format(
-                    sample_weight.shape[0], (n_samples,)
+                    sample_weight.shape[0], n_samples
                 )
             )
 
-        if sample_weight.shape[1] != (n_features,): #changed to check number of features
+        if sample_weight.shape[1] != n_features: #changed to check number of features
             raise ValueError(
                 "sample_weight.shape[1] == {}, expected {}!".format(
-                    sample_weight.shape[1], (n_features,)
+                    sample_weight.shape[1], n_features
                 )
             )
 
