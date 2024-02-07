@@ -1885,7 +1885,7 @@ def _check_sample_weight(
                 )
             )
 
-        if sample_weight.ndim > 1 and sample_weight.shape[1] != n_features: #changed to check number of features
+        if sample_weight.ndim > 1 and sample_weight.shape[1] != n_features: #changed to check number of features and dimension
             raise ValueError(
                 "sample_weight.shape[1] == {}, expected {}!".format(
                     sample_weight.shape[1], n_features
